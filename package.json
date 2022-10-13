@@ -1,25 +1,47 @@
 {
   "name": "base64-advanced-cli",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Command line interface for advanced base 64 encoding/decodingconsole.log();",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:dev": "tsc && npm install -g"
+    "build:local": "tsc && npm install -g"
   },
   "bin": {
     "b64": "./dist/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Acuao/base64-advanced-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Acuao/base64-advanced-cli/issues"
+  },
+  "homepage": "https://github.com/Acuao/base64-advanced-cli#readme",
+  "keywords": [
+    "base64",
+    "base",
+    "64",
+    "encode",
+    "decode",
+    "data",
+    "file",
+    "cli",
+    "util",
+    "comman",
+    "line",
+    "interface",
+    "encoder",
+    "decoder",
+    "tool"
+  ],
+  "author": "Acuao",
+  "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "ts-node-dev": "^2.0.0"
   },
   "dependencies": {
-    "@types/express": "^4.17.14",
-    "@types/node": "^18.7.23",
-    "express": "^4.18.1",
-    "ts-node-dev": "^2.0.0"
+    "@types/node": "^18.7.23"
   }
 }
