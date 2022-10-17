@@ -2,7 +2,6 @@
   "name": "base64-advanced-cli",
   "version": "0.0.2",
   "description": "Command line interface for advanced base 64 encoding/decoding",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:local": "tsc && npm install -g"
@@ -10,6 +9,7 @@
   "bin": {
     "b64": "./dist/index.js"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/Acuao/base64-advanced-cli.git"
@@ -42,6 +42,7 @@
     "ts-node-dev": "^2.0.0"
   },
   "dependencies": {
-    "@types/node": "^18.7.23"
+    "@types/node": "^18.7.23",
+    "chalk": "^5.1.2"
   }
 }
