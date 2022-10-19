@@ -28,7 +28,7 @@
     "file",
     "cli",
     "util",
-    "comman",
+    "command",
     "line",
     "interface",
     "encoder",
