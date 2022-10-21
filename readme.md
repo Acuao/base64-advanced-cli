@@ -8,6 +8,12 @@ $ npm install --global base64-advanced-cli
 ```
 
 
+... or just try it without installing it :
+```
+$ npx base64-advanced-cli -e "Hello World!"
+```
+
+
 ## Usage
 
 This CLI provides the following command : `b64`
@@ -36,27 +42,27 @@ Options:
 
 ### Usage examples :
 
-**Encoding:**
+**Encoding :**
 ```
 $ b64 -e "Hello World!"
 ```
 Will return `SGVsbG8gV29ybGQh` value.
 
-**Decoding:**
+**Decoding :**
 
 ```
 $ b64 -d SGVsbG8gV29ybGQh
 ```
 Will return `Hello World!` value.
 
-**Writing output to a file:**
+**Writing output to a file :**
 ```
 $ b64 -d SGVsbG8gV29ybGQh -o decoded.txt
 ```
 
 Will create a file named `decoded.txt` containingext " *Hello world!* " text, instead of displaying the output in the console.
 
-**Reading input from a file:**
+**Reading input from a file :**
 ```
 $ b64 -e -i decoded.txt
 ```

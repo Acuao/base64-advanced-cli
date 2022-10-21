@@ -5,10 +5,16 @@ import fs from "fs";
 import { program } from "commander";
 import figlet from 'figlet';
 
-
 // display command header
 
 // define program parameters & options
+interface ProgramOptions{
+  encode: boolean | string,
+  decode: boolean | string,
+  inputFile: string,
+  outputFile: string,
+} 
+
 program
 .option('-d, --decode [data]', 'set mode to encoding')
 .option('-e, --encode [data]', 'set mode to decoding')
@@ -18,7 +24,7 @@ program
 .addHelpText("before", chalk.green("base64-advanced-client"))
 program.parse();
 
-const options = program.opts();
+const options: ProgramOptions = program.opts();
 
 
 
@@ -28,10 +34,19 @@ if (!process.argv.slice(2).length) {
   exit();
 }
 
+////////////////////
+// error handlings
 
-// error handling
 if(options.encode && options.decode){
-  console.log(chalk.red('Encode & Decode flags can\'t be used at the same time.'));
+  console.log(chalk.red('Encode and Decode flags can\'t be used at the same time.'));
+  exit();
+}
+if(options.inputFile && options.encode && options.encode !== true){
+  console.log(chalk.red('Encode data and input-file can\'t be both provided at the same time.'));
+  exit();
+}
+if(options.inputFile && options.decode && options.decode !== true){
+  console.log(chalk.red('Decode data and input-file can\'t be both provided at the same time'));
   exit();
 }
 
