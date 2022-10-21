@@ -1,6 +1,6 @@
 {
   "name": "base64-advanced-cli",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Command line interface for advanced base 64 encoding/decoding",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -33,16 +33,21 @@
     "interface",
     "encoder",
     "decoder",
-    "tool"
+    "tool",
+    "advanced",
+    "console"
   ],
   "author": "Acuao",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.8.4",
-    "ts-node-dev": "^2.0.0"
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.8.4"
   },
   "dependencies": {
+    "@types/figlet": "^1.5.5",
     "@types/node": "^18.7.23",
-    "chalk": "^5.1.2"
+    "chalk": "^5.1.2",
+    "commander": "^9.4.1",
+    "figlet": "^1.5.2"
   }
 }
