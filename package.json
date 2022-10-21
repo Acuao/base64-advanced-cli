@@ -1,10 +1,11 @@
 {
   "name": "base64-advanced-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Command line interface for advanced base 64 encoding/decoding",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:local": "tsc && npm install -g"
+    "build:local": "tsc && npm install -g",
+    "build:release": "rm -rf dist && tsc && npm publish"
   },
   "bin": {
     "b64": "./dist/index.js"

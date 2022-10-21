@@ -1,5 +1,5 @@
 # base64-advanced-cli
-This command line interface helps you to **encode/decode base64** data with advanced features like **files encoding/decoding**
+This command line interface helps you to **encode/decode base64** data with advanced features like **files encoding/decoding** for example images.
 
 ## Install
 
