@@ -14,6 +14,8 @@ program
 .option('-e, --encode [data]', 'set mode to decoding')
 .option('-i, --input-file <filename>', 'read input from a file')
 .option('-o, --output-file <filename>', 'write output to a file')
+.addHelpText("before", chalk.red(figlet.textSync("b64", {font: 'Univers'})))
+.addHelpText("before", chalk.green("base64-advanced-client"))
 program.parse();
 
 const options = program.opts();
@@ -22,8 +24,6 @@ const options = program.opts();
 
 // if not arguments, we display help & exit the program
 if (!process.argv.slice(2).length) {
-  console.log(chalk.red(figlet.textSync("b64")));
-  console.log(chalk.green("base64-advanced-client"));
   program.outputHelp();
   exit();
 }
