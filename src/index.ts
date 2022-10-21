@@ -50,35 +50,45 @@ if(options.inputFile && options.decode && options.decode !== true){
   exit();
 }
 
-let inputEncoding: BufferEncoding;
-let outputEncoding: BufferEncoding = 'utf8' as BufferEncoding;
-let inputBuffer: Buffer = Buffer.from('');
+let inputEncoding: BufferEncoding = 'base64';
+let inputAsB64string = '';
 
+
+// we convert all inputs as base 64 to have common encoding, useful for exotic file conversions
 // handle "encode" input
 if(options.encode){
   inputEncoding = 'utf8';
-  outputEncoding = 'base64'
   if(options.encode !== true){
-    inputBuffer = Buffer.from(options.encode, inputEncoding);
+    inputAsB64string = Buffer.from(options.encode, inputEncoding).toString('base64');
   } else if(options.inputFile) {
-    inputBuffer = fs.readFileSync(options.inputFile);
+    inputAsB64string = fs.readFileSync(options.inputFile).toString('base64');
   }
 }
 
 //handle "decode" input
 if(options.decode){
   inputEncoding = 'base64';
-  outputEncoding = 'utf8'
   if(options.decode !== true){
-    inputBuffer = Buffer.from(options.decode, inputEncoding)
+    inputAsB64string = options.decode;
   } else if(options.inputFile) {
-    inputBuffer = fs.readFileSync(options.inputFile);
+    inputAsB64string = fs.readFileSync(options.inputFile).toString('ascii');
   }
 }
 
+
+
+
 // handle output
+const outputBuffer = Buffer.from(inputAsB64string, inputEncoding);
 if(options.outputFile){
-  fs.writeFileSync(options.outputFile, inputBuffer);
+  console.log('inputEncoding', inputEncoding);
+  if(options.decode){
+    // fs.writeFileSync(options.outputFile, outputBuffer.toString()) // OK mais pas pour les images
+    fs.writeFileSync(options.outputFile, Buffer.from(inputAsB64string,'base64' ));
+  } else {
+    fs.writeFileSync(options.outputFile, outputBuffer)
+  }
 } else {
-  console.log(chalk.yellow(inputBuffer.toString(outputEncoding)));
+  console.log(chalk.yellow(outputBuffer.toString()));
 }
+
