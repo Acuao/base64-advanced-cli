@@ -4,11 +4,12 @@
   "description": "Command line interface for advanced base 64 encoding/decoding",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:local": "tsc && npm install -g",
-    "build:release": "rm -rf dist && tsc && npm publish"
+    "build:local": "sudo npm uninstall -g base64-advanced-cli && npm run build && sudo npm install -g .",
+    "build": "rm -rf dist && tsc",
+    "make:release": "npm run build && npm publish"
   },
   "bin": {
-    "b64": "./dist/index.js"
+    "b64": "./dist/src/index.js"
   },
   "type": "module",
   "repository": {

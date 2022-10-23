@@ -5,7 +5,15 @@ import fs from "fs";
 import { program } from "commander";
 import figlet from 'figlet';
 
-// display command header
+import { fileURLToPath } from 'url';
+import path from 'path'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// get the app version
+const packageJsonPath = path.resolve(__dirname, '../../package.json');
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath).toString());
 
 // define program parameters & options
 interface ProgramOptions{
@@ -13,6 +21,7 @@ interface ProgramOptions{
   decode: boolean | string,
   inputFile: string,
   outputFile: string,
+  version: boolean,
 } 
 
 program
@@ -20,8 +29,9 @@ program
 .option('-e, --encode [data]', 'set mode to decoding')
 .option('-i, --input-file <filename>', 'read input from a file')
 .option('-o, --output-file <filename>', 'write output to a file')
+.option('-v, --version', 'display the version of this CLI')
 .addHelpText("before", chalk.red(figlet.textSync("b64", {font: 'Univers'})))
-.addHelpText("before", chalk.green("base64-advanced-client"))
+.addHelpText("before", chalk.green("base64-advanced-client v" + packageJson.version))
 program.parse();
 
 const options: ProgramOptions = program.opts();
@@ -34,9 +44,13 @@ if (!process.argv.slice(2).length) {
   exit();
 }
 
+// display version handling
+if(options.version) {
+  console.log(chalk.green("base64-advanced-client v" + packageJson.version));
+}
+
 ////////////////////
 // error handlings
-
 if(options.encode && options.decode){
   console.log(chalk.red('Encode and Decode flags can\'t be used at the same time.'));
   exit();
@@ -91,4 +105,3 @@ if(options.outputFile){
 } else {
   console.log(chalk.yellow(outputBuffer.toString()));
 }
-
