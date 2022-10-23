@@ -29,7 +29,7 @@ This CLI provides the following command : `b64`
 8Y"Ybbd8"'    "Y88888P"            88    
                                          
                                          
-base64-advanced-client
+base64-advanced-client v1.x.x
 Usage: b64 [options]
 
 Options:
@@ -37,6 +37,7 @@ Options:
   -e, --encode [data]           set mode to decoding
   -i, --input-file <filename>   read input from a file
   -o, --output-file <filename>  write output to a file
+  -v, --version                 display the version of this CLI
   -h, --help                    display help for command
 ```
 
