@@ -22,16 +22,18 @@ interface ProgramOptions{
   inputFile: string,
   outputFile: string,
   version: boolean,
+  jwt: string,
 } 
 
 program
-.option('-d, --decode [data]', 'set mode to encoding')
-.option('-e, --encode [data]', 'set mode to decoding')
-.option('-i, --input-file <filename>', 'read input from a file')
-.option('-o, --output-file <filename>', 'write output to a file')
-.option('-v, --version', 'display the version of this CLI')
-.addHelpText("before", chalk.red(figlet.textSync("b64", {font: 'Univers'})))
-.addHelpText("before", chalk.green("base64-advanced-client v" + packageJson.version))
+  .option('-d, --decode [data]', 'set mode to encoding')
+  .option('-e, --encode [data]', 'set mode to decoding')
+  .option('-i, --input-file <filename>', 'read input from a file')
+  .option('-o, --output-file <filename>', 'write output to a file')
+  .option('-v, --version', 'display the version of this CLI')
+  .option('--jwt [data]', 'display the content of a jwt token')
+  .addHelpText("before", chalk.red(figlet.textSync("b64", {font: 'Univers'})))
+  .addHelpText("before", chalk.green("base64-advanced-client v" + packageJson.version))
 program.parse();
 
 const options: ProgramOptions = program.opts();
@@ -66,6 +68,19 @@ if(options.inputFile && options.decode && options.decode !== true){
 
 let inputEncoding: BufferEncoding = 'base64';
 let inputAsB64string = '';
+
+
+// jwt handling
+if(options.jwt) {
+  const jwtParts = options.jwt.split('.');
+  if(jwtParts.length === 3){
+    console.log(chalk.blue('Header :', JSON.stringify(JSON.parse(atob(jwtParts[0])), null, 4)));
+    console.log(chalk.green('Body :', JSON.stringify(JSON.parse(atob(jwtParts[1])), null, 4)));
+  } else {
+    console.log(chalk.red('invalid JWT token'));
+  }
+  exit();
+}
 
 
 // we convert all inputs as base 64 to have common encoding, useful for exotic file conversions
