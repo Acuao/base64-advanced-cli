@@ -4,9 +4,10 @@
   "description": "Command line interface for advanced base 64 encoding/decoding",
   "scripts": {
     "test": "npx ts-node --esm test/test.ts",
-    "build:local": "sudo npm uninstall -g base64-advanced-cli && npm run build && sudo npm install -g .",
     "build": "npm i && rm -rf dist && tsc",
-    "make:release": "npm run build && npm publish"
+    "build:local": "sudo npm uninstall -g base64-advanced-cli && npm run build && sudo npm install -g .",
+    "make:prerelease": "npm run build:local && npm test",
+    "make:release": "npm run make:prerelease && npm publish"
   },
   "bin": {
     "b64": "./dist/src/index.js"
