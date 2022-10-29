@@ -31,7 +31,7 @@ program
   .option('-i, --input-file <filename>', 'read input from a file')
   .option('-o, --output-file <filename>', 'write output to a file')
   .option('-v, --version', 'display the version of this CLI')
-  .option('--jwt [data]', 'display the content of a jwt token')
+  .option('--jwt <data>', 'display the content of a jwt token')
   .addHelpText("before", chalk.red(figlet.textSync("b64", {font: 'Univers'})))
   .addHelpText("before", chalk.green("base64-advanced-client v" + packageJson.version))
 program.parse();

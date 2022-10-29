@@ -38,7 +38,7 @@ Options:
   -i, --input-file <filename>   read input from a file
   -o, --output-file <filename>  write output to a file
   -v, --version                 display the version of this CLI
-  --jwt [data]                  display the content of a jwt token
+  --jwt <data>                  display the content of a jwt token
   -h, --help                    display help for command
 ```
 
@@ -71,7 +71,7 @@ $ b64 -e -i decoded.txt
 Will read file contents and encodode it, rather than using the command input.
 
 
-#### JWT Preview
+#### JWT Preview :
 This CLI provides a simple way to preview the content of JWT tokens.
 ```
 $ b64 --jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.hqWGSaFpvbrXkOWc6lrnffhNWR19W_S1YKFBx2arWBk
