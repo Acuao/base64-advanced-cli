@@ -110,7 +110,6 @@ if(options.decode){
 // handle output
 const outputBuffer = Buffer.from(inputAsB64string, inputEncoding);
 if(options.outputFile){
-  console.log('inputEncoding', inputEncoding);
   if(options.decode){
     // fs.writeFileSync(options.outputFile, outputBuffer.toString()) // OK mais pas pour les images
     fs.writeFileSync(options.outputFile, Buffer.from(inputAsB64string,'base64' ));
