@@ -1,0 +1,8 @@
+Header : {
+    "alg": "HS256",
+    "typ": "JWT"
+}
+Body : {
+    "name": "John Doe",
+    "iat": 1516239022
+}
