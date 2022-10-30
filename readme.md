@@ -39,6 +39,7 @@ Options:
   -o, --output-file <filename>  write output to a file
   -v, --version                 display the version of this CLI
   --jwt <data>                  display the content of a jwt token
+  --no-update-notification      do not display update notifications
   -h, --help                    display help for command
 ```
 
