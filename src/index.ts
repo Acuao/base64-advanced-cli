@@ -6,7 +6,8 @@ import { program } from "commander";
 import figlet from 'figlet';
 
 import { fileURLToPath } from 'url';
-import path from 'path'
+import path from 'path';
+import updateNotifier from 'update-notifier';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,6 +24,7 @@ interface ProgramOptions{
   outputFile: string,
   version: boolean,
   jwt: string,
+  updateNotification: boolean,
 } 
 
 program
@@ -32,12 +34,19 @@ program
   .option('-o, --output-file <filename>', 'write output to a file')
   .option('-v, --version', 'display the version of this CLI')
   .option('--jwt <data>', 'display the content of a jwt token')
+  .option('--no-update-notification', 'do not display update notifications')
   .addHelpText("before", chalk.red(figlet.textSync("b64", {font: 'Univers'})))
   .addHelpText("before", chalk.green("base64-advanced-client v" + packageJson.version))
 program.parse();
 
 const options: ProgramOptions = program.opts();
 
+//handle update notifications
+if( options.updateNotification ) {
+  const updateCheckInterval = 1000 * 60 * 60 * 24 // 1 DAY
+  const notifier = updateNotifier({pkg: packageJson, updateCheckInterval});
+  notifier.notify();
+}
 
 
 // if not arguments, we display help & exit the program
@@ -55,6 +64,10 @@ if(options.version) {
 // error handlings
 if(options.encode && options.decode){
   console.log(chalk.red('Encode and Decode flags can\'t be used at the same time.'));
+  exit();
+}
+if(!options.encode && !options.decode && !options.jwt && !options.version){
+  console.log(chalk.red('No action to perform.'));
   exit();
 }
 if(options.inputFile && options.encode && options.encode !== true){
