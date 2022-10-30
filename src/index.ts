@@ -58,6 +58,7 @@ if (!process.argv.slice(2).length) {
 // display version handling
 if(options.version) {
   console.log(chalk.green("base64-advanced-client v" + packageJson.version));
+  exit();
 }
 
 ////////////////////
