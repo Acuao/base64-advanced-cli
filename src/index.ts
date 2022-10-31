@@ -85,6 +85,14 @@ if(options.inputFile && options.decode && options.decode !== true){
   console.log(chalk.red('Decode data and input-file can\'t be both provided at the same time'));
   exit();
 }
+if(options.html && options.decode){
+  console.log(chalk.red('Html image decoding is not supported'));
+  exit();
+}
+if(options.html && !options.inputFile){
+  console.log(chalk.red('No file to encode was provided'));
+  exit();
+}
 
 
 // jwt handling

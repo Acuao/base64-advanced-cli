@@ -90,6 +90,32 @@ if(execSync('b64 --jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBE
 
 
 
+console.log(chalk.blue('html image encoding', ':'));      
+if(execSync('b64 -e --html -i test/in-love-small.png').toString('utf8') === fs.readFileSync('./test/html-image-output.html').toString('utf8')+'\n'){
+  console.log(chalk.green('TEST Success !'));                                             
+} else {
+  console.log(chalk.red('TEST Failed !')); 
+  errorCount ++;                                             
+}
+
+
+
+
+console.log(chalk.blue('html image encoding to file', ':'));      
+execSync('b64 -e --html -i test/in-love-small.png -o test/image.tmp.html');
+
+if(getFileSha256('./test/image.tmp.html') === getFileSha256('./test/html-image-output.html')){
+  console.log(chalk.green('TEST Success !'));                                             
+} else {
+  console.log(chalk.red('TEST Failed !')); 
+  errorCount ++;                                             
+}
+fs.rmSync('test/image.tmp.html');
+
+
+
+
+
 console.log(chalk.blue('decode from file to file', ':'));      
 execSync('b64 -d -i test/bus.gif.b64 -o test/decoded.tmp.gif');
 
