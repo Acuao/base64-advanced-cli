@@ -1,5 +1,5 @@
 # base64-advanced-cli
-This command line interface helps you to **encode/decode base64** data with advanced features like **files encoding/decoding** for example images and **jwt preview**.
+This command line interface helps you to **encode/decode base64** data with advanced features like **files encoding/decoding**,  **jwt review** and **html image encoding**.
 
 ## Install
 
@@ -39,6 +39,7 @@ Options:
   -o, --output-file <filename>  write output to a file
   -v, --version                 display the version of this CLI
   --jwt <data>                  display the content of a jwt token
+  --html                        encode an image into an html tag containing base64 data
   --no-update-notification      do not display update notifications
   -h, --help                    display help for command
 ```
@@ -89,6 +90,17 @@ Body : {
 }
 ```
 :warning: The CLI does **NOT** validate the signature of the token since this is not te purose of this tool.
+
+#### HTML Image base 64 encoding :
+You can use this CLI to directly encode your images as html base64 images (with automatic mime type dectection).
+```
+$  b64 -e --html -i image.png
+```
+Will return the html tag containing the encoded image in base 64 format (e.g. `<img src="data:image/png;base64,iVBORw0K[...]g==" />`).
+```
+$ b64 -e --html -i image.png -o image.html
+```
+Will perform the same operation but will save the image html content in a file rather than simply displaying the output.
 
 ##  :warning: Note
 This library is still under development some changes may occur, great features incoming :muscle:

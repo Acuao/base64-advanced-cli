@@ -4,10 +4,11 @@ import chalk from "chalk";
 import fs from "fs";
 import { program } from "commander";
 import figlet from 'figlet';
-
 import { fileURLToPath } from 'url';
 import path from 'path';
 import updateNotifier from 'update-notifier';
+import base64ImageMime from 'base64-image-mime';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,6 +25,7 @@ interface ProgramOptions{
   outputFile: string,
   version: boolean,
   jwt: string,
+  html: boolean,
   updateNotification: boolean,
 } 
 
@@ -34,6 +36,7 @@ program
   .option('-o, --output-file <filename>', 'write output to a file')
   .option('-v, --version', 'display the version of this CLI')
   .option('--jwt <data>', 'display the content of a jwt token')
+  .option('--html', 'encode an image into an html tag containing base64 data')
   .option('--no-update-notification', 'do not display update notifications')
   .addHelpText("before", chalk.red(figlet.textSync("b64", {font: 'Univers'})))
   .addHelpText("before", chalk.green("base64-advanced-client v" + packageJson.version))
@@ -83,9 +86,6 @@ if(options.inputFile && options.decode && options.decode !== true){
   exit();
 }
 
-let inputEncoding: BufferEncoding = 'base64';
-let inputAsB64string = '';
-
 
 // jwt handling
 if(options.jwt) {
@@ -99,7 +99,23 @@ if(options.jwt) {
   exit();
 }
 
+// html images handling
+if(options.html) {
+  const imageContentB64 = fs.readFileSync(options.inputFile).toString('base64');
+  const mimeType = base64ImageMime.getImageMime(imageContentB64);
+  const imageHtml= `<img src="data:${mimeType};base64,${imageContentB64}" />`;
+  if(options.outputFile){
+    fs.writeFileSync(options.outputFile, imageHtml);
+  } else {
+    console.log(chalk.yellow(imageHtml));
+  }
+  exit();
+}
 
+
+
+let inputEncoding: BufferEncoding = 'base64';
+let inputAsB64string = '';
 // we convert all inputs as base 64 to have common encoding, useful for exotic file conversions
 // handle "encode" input
 if(options.encode){
@@ -131,7 +147,7 @@ if(options.outputFile){
     // fs.writeFileSync(options.outputFile, outputBuffer.toString()) // OK mais pas pour les images
     fs.writeFileSync(options.outputFile, Buffer.from(inputAsB64string,'base64' ));
   } else {
-    fs.writeFileSync(options.outputFile, outputBuffer)
+    fs.writeFileSync(options.outputFile, outputBuffer);
   }
 } else {
   console.log(chalk.yellow(outputBuffer.toString()));
