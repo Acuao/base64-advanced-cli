@@ -89,7 +89,7 @@ Body : {
     "iat": 1516239022
 }
 ```
-:warning: The CLI does **NOT** validate the signature of the token since this is not te purose of this tool.
+:warning: The CLI does **NOT** validate the signature of the token since this is not the purose of this tool.
 
 #### HTML Image base 64 encoding :
 You can use this CLI to directly encode your images as html base64 images (with automatic mime type dectection).
