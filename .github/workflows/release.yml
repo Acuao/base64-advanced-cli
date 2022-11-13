@@ -21,6 +21,10 @@ jobs:
             node: 16.x
     runs-on: ${{matrix.os}}
     steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
@@ -35,6 +39,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
