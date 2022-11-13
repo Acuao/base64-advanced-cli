@@ -99,8 +99,8 @@ if(options.html && !options.inputFile){
 if(options.jwt) {
   const jwtParts = options.jwt.split('.');
   if(jwtParts.length === 3){
-    console.log(chalk.blue('Header :', JSON.stringify(JSON.parse(atob(jwtParts[0])), null, 4)));
-    console.log(chalk.green('Body :', JSON.stringify(JSON.parse(atob(jwtParts[1])), null, 4)));
+    console.log(chalk.blue('Header :', JSON.stringify(JSON.parse(Buffer.from(jwtParts[0], 'base64').toString("utf8")), null, 4)));
+    console.log(chalk.green('Body :', JSON.stringify(JSON.parse(Buffer.from(jwtParts[1], 'base64').toString("utf8")), null, 4)));
   } else {
     console.log(chalk.red('invalid JWT token'));
   }
