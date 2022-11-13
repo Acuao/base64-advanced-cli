@@ -1,0 +1,70 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: Release
+
+on:
+  workflow_dispatch: 
+#   push:
+#     branches: 
+#       - main
+
+jobs:
+
+  test:
+    strategy: 
+      matrix:
+        node: [14.x, 16.x, 18.x, 19.x]
+        os: [ubuntu-latest, windows-latest]
+        exclude: 
+          - os: ubuntu-latest
+            node: 16.x
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node}}
+      - run: npm ci
+      - run: npm test
+
+
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - run: npm ci
+      - run: npm test
+
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
+      - run : echo "steps.package-version.outputs.current-version --> ${{ steps.package-version.outputs.current-version}}"
+
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.package-version.outputs.current-version}}
+      
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: ${{ steps.tag_version.outputs.new_tag }}
+          body: |
+            **Changelog :**
+              - 
+
+            **Release :**
+            https://www.npmjs.com/package/base64-advanced-cli/v/${{ steps.package-version.outputs.current-version}}
