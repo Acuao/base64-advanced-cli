@@ -9,3 +9,11 @@ export function getFileSha256(filename: string){
 
   return hashSum.digest('hex');
 }
+
+
+export function checkCommandResult(result: string, expectation: string) {
+  return (
+    result.replace('\r', '') === expectation ||
+    result.replace('\r', '') === expectation + "\n"
+  );
+}

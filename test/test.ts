@@ -1,7 +1,7 @@
 import { execSync } from "child_process";
 import chalk from "chalk";
 import fs from "fs";
-import { getFileSha256 } from './test-utils.js';
+import { getFileSha256, checkCommandResult } from './test-utils.js';
 
 
 let errorCount = 0;
@@ -11,7 +11,10 @@ let errorCount = 0;
 
 
 console.log(chalk.blue('simple encoding', ':'));                                             
-if(execSync('b64 -e test').toString('utf-8') === 'dGVzdA==\n'){
+if(checkCommandResult(
+  execSync('b64 -e test').toString('utf-8'),
+  'dGVzdA=='
+)){
   console.log(chalk.green('TEST Success !'));                                             
 } else {
   console.log(chalk.red('TEST Failed !'));
@@ -22,7 +25,10 @@ if(execSync('b64 -e test').toString('utf-8') === 'dGVzdA==\n'){
 
 
 console.log(chalk.blue('simple decoding', ':'));                                             
-if(execSync('b64 -d dGVzdA==').toString('utf-8') === 'test\n'){
+if(checkCommandResult(
+  execSync('b64 -d dGVzdA==').toString('utf-8'),
+  'test'
+)){
   console.log(chalk.green('TEST Success !'));                                             
 } else {
   console.log(chalk.red('TEST Failed !')); 
@@ -32,7 +38,10 @@ if(execSync('b64 -d dGVzdA==').toString('utf-8') === 'test\n'){
 
 
 console.log(chalk.blue('input file encoding', ':'));                                             
-if(execSync('b64 -e -i test/in-love-small.png').toString('utf-8') === 'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAABq0lEQVQ4jWNgQAP/D/AE/d/PfQGIfwDxfyj+8X8f9/n/+3kC0NVDNDEwML7NNJH9v4/zyv+93P//bhP4j6QZjP9u5///fy8PkM116XWSldR/hnomqOZQ5jvaCbvvaCT/fxHl9v+xa9B/EPtNnjVc87tSs/93NJP/P3IM/f8y3hksf0cr8fgVrVA2hlsaKRZgATR8VzsRYuM+7v93dRMw5MFq1BJtGL5OU027o5mEIfnQNhzugod24ZgGAPV8maiRwgAKsNdZthgKvvSpww340q+OIf860w7kurNAA7h+/NvD+/9FrAvEWVqJ/z/UGmIEIkgM5C1wWMW4/gfpARrwHWTAP5iir5PU/v+YL4ehGYZ/LpEGuwYuto/7HwOIwKZYS9X/v5RUCBhrq/njMvQf2AvYJOVlg/6rSYeCsYJcEHYDwF4ApzBMyR5nz/+3gP69CcQ9Lh64XHCGAZQ8sUn+2MH/f3e8LRiD2FgN2MPrC0mNwOSJK+Dw4AuIvLCKgQdoyFuiNe8Dqj3DwIWaoSCGXCTGZgzNKAbt4/EHpTBQCEPSCBCD2dxn4H5GAgAOzEfknjgxDwAAAABJRU5ErkJggg==\n'){
+if(checkCommandResult(
+  execSync('b64 -e -i test/in-love-small.png').toString('utf-8'),
+  'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAABq0lEQVQ4jWNgQAP/D/AE/d/PfQGIfwDxfyj+8X8f9/n/+3kC0NVDNDEwML7NNJH9v4/zyv+93P//bhP4j6QZjP9u5///fy8PkM116XWSldR/hnomqOZQ5jvaCbvvaCT/fxHl9v+xa9B/EPtNnjVc87tSs/93NJP/P3IM/f8y3hksf0cr8fgVrVA2hlsaKRZgATR8VzsRYuM+7v93dRMw5MFq1BJtGL5OU027o5mEIfnQNhzugod24ZgGAPV8maiRwgAKsNdZthgKvvSpww340q+OIf860w7kurNAA7h+/NvD+/9FrAvEWVqJ/z/UGmIEIkgM5C1wWMW4/gfpARrwHWTAP5iir5PU/v+YL4ehGYZ/LpEGuwYuto/7HwOIwKZYS9X/v5RUCBhrq/njMvQf2AvYJOVlg/6rSYeCsYJcEHYDwF4ApzBMyR5nz/+3gP69CcQ9Lh64XHCGAZQ8sUn+2MH/f3e8LRiD2FgN2MPrC0mNwOSJK+Dw4AuIvLCKgQdoyFuiNe8Dqj3DwIWaoSCGXCTGZgzNKAbt4/EHpTBQCEPSCBCD2dxn4H5GAgAOzEfknjgxDwAAAABJRU5ErkJggg=='
+)){
   console.log(chalk.green('TEST Success !'));                                             
 } else {
   console.log(chalk.red('TEST Failed !')); 
@@ -43,7 +52,10 @@ if(execSync('b64 -e -i test/in-love-small.png').toString('utf-8') === 'iVBORw0KG
 
 
 console.log(chalk.blue('input file decoding', ':'));   
-if(execSync('b64 -d -i test/hello-world.txt.b64').toString('utf-8') === 'Hello World!\n'){
+if(checkCommandResult(
+  execSync('b64 -d -i test/hello-world.txt.b64').toString('utf-8'),
+  'Hello World!'
+)){
   console.log(chalk.green('TEST Success !'));                                             
 } else {
   console.log(chalk.red('TEST Failed !')); 
