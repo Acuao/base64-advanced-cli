@@ -68,7 +68,8 @@ if(options.version) {
 }
 
 ////////////////////
-// error handlings
+// error handling
+////////////////////
 if(options.encode && options.decode){
   console.log(chalk.red('Encode and Decode flags can\'t be used at the same time.'));
   exit();
@@ -152,7 +153,6 @@ if(options.decode){
 const outputBuffer = Buffer.from(inputAsB64string, inputEncoding);
 if(options.outputFile){
   if(options.decode){
-    // fs.writeFileSync(options.outputFile, outputBuffer.toString()) // OK mais pas pour les images
     fs.writeFileSync(options.outputFile, Buffer.from(inputAsB64string,'base64' ));
   } else {
     fs.writeFileSync(options.outputFile, outputBuffer);
