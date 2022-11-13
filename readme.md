@@ -1,3 +1,6 @@
+[![Release](https://github.com/Acuao/base64-advanced-cli/actions/workflows/release.yml/badge.svg)](https://github.com/Acuao/base64-advanced-cli/actions/workflows/release.yml)
+
+
 # base64-advanced-cli
 This command line interface helps you to **encode/decode base64** data with advanced features like **files encoding/decoding**,  **jwt review** and **html image encoding**.
 
@@ -12,6 +15,7 @@ $ npm install --global base64-advanced-cli
 ```
 $ npx base64-advanced-cli -e "Hello World!"
 ```
+
 
 
 ## Usage
