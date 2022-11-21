@@ -16,6 +16,8 @@ $ npm install --global base64-advanced-cli
 $ npx base64-advanced-cli -e "Hello World!"
 ```
 
+... or try the [Online Demo 💪](https://stackblitz.com/edit/base64-advanced-cli?file=README.txt)
+
 
 
 ## Usage
