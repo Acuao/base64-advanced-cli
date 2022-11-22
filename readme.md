@@ -108,5 +108,8 @@ $ b64 -e --html -i image.png -o image.html
 ```
 Will perform the same operation but will save the image html content in a file rather than simply displaying the output.
 
+## Releases
+Find all releases on npm : https://www.npmjs.com/package/base64-advanced-cli
+
 ##  :warning: Note
 This library is still under development some changes may occur, great features incoming :muscle:
