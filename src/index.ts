@@ -44,8 +44,11 @@ program.parse();
 
 const options: ProgramOptions = program.opts();
 
-//handle update notifications
-if( options.updateNotification ) {
+
+try {
+
+  //handle update notifications
+  if( options.updateNotification ) {
   const updateCheckInterval = 1000 * 60 * 60 * 24 // 1 DAY
   const notifier = updateNotifier({pkg: packageJson, updateCheckInterval});
   if(options.version){
@@ -71,28 +74,22 @@ if(options.version) {
 // error handling
 ////////////////////
 if(options.encode && options.decode){
-  console.log(chalk.red('Encode and Decode flags can\'t be used at the same time.'));
-  exit();
+  throw new Error('Encode and Decode flags can\'t be used at the same time.');
 }
 if(!options.encode && !options.decode && !options.jwt && !options.version){
-  console.log(chalk.red('No action to perform.'));
-  exit();
+  throw new Error('No action to perform.');
 }
 if(options.inputFile && options.encode && options.encode !== true){
-  console.log(chalk.red('Encode data and input-file can\'t be both provided at the same time.'));
-  exit();
+  throw new Error('Encode data and input-file can\'t be both provided at the same time.');
 }
 if(options.inputFile && options.decode && options.decode !== true){
-  console.log(chalk.red('Decode data and input-file can\'t be both provided at the same time'));
-  exit();
+  throw new Error('Decode data and input-file can\'t be both provided at the same time');
 }
 if(options.html && options.decode){
-  console.log(chalk.red('Html image decoding is not supported'));
-  exit();
+  throw new Error('Html image decoding is not supported');
 }
 if(options.html && !options.inputFile){
-  console.log(chalk.red('No file to encode was provided'));
-  exit();
+  throw new Error('No file to encode was provided');
 }
 
 
@@ -159,4 +156,9 @@ if(options.outputFile){
   }
 } else {
   console.log(chalk.yellow(outputBuffer.toString()));
+}
+
+} catch(e) {
+  console.error(chalk.red(e));
+  exit(1);
 }

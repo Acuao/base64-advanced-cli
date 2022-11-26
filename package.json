@@ -3,6 +3,7 @@
   "version": "1.1.1",
   "description": "Command line interface for advanced base 64 encoding/decoding",
   "scripts": {
+    "dev": "tsc -w",
     "test": "npx ts-node --esm test/test.ts",
     "build": "npm i && npx rimraf dist && tsc",
     "build:local": "npm uninstall -g base64-advanced-cli && npm run build && npm install -g .",
