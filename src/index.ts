@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import updateNotifier from 'update-notifier';
 import base64ImageMime from 'base64-image-mime';
+import getStdin from "get-stdin";
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -16,6 +17,7 @@ const __dirname = path.dirname(__filename);
 // get the app version
 const packageJsonPath = path.resolve(__dirname, '../../package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath).toString());
+
 
 // define program parameters & options
 interface ProgramOptions{
@@ -46,6 +48,12 @@ const options: ProgramOptions = program.opts();
 
 
 try {
+  if(options.encode === true && !options.inputFile){
+    options.encode = await getStdin();
+  }
+  if(options.decode === true && !options.inputFile){
+    options.decode = await getStdin();
+  }
 
   //handle update notifications
   if( options.updateNotification ) {
@@ -117,6 +125,12 @@ if(options.html) {
   }
   exit();
 }
+
+//handle stdin
+// if(options.encode === true && process.stdin)
+
+
+
 
 
 

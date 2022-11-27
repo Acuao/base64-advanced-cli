@@ -55,6 +55,7 @@
     "chalk": "^5.1.2",
     "commander": "^9.4.1",
     "figlet": "^1.5.2",
+    "get-stdin": "^9.0.0",
     "update-notifier": "^6.0.2"
   }
 }
