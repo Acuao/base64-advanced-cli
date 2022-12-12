@@ -26,6 +26,7 @@
     "base64",
     "base",
     "64",
+    "b64",
     "encode",
     "decode",
     "data",
