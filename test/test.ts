@@ -4,6 +4,9 @@ import fs from "fs";
 import { getFileSha256, checkCommandResult } from './test-utils.js';
 
 
+var isOSWindows = process.platform === "win32";
+
+
 let errorCount = 0;
 
 
@@ -25,14 +28,18 @@ if(checkCommandResult(
 
 
 console.log(chalk.blue('stdin encoding', ':'));                                             
-if(checkCommandResult(
-  execSync('echo test | node dist/src/index.js -e').toString('utf-8'),
-  'dGVzdAo='
-)){
-  console.log(chalk.green('TEST Success !'));                                             
+if(!isOSWindows){
+  if(checkCommandResult(
+    execSync('echo test | node dist/src/index.js -e').toString('utf-8'),
+    'dGVzdAo='
+  )){
+    console.log(chalk.green('TEST Success !'));                                             
+  } else {
+    console.log(chalk.red('TEST Failed !'));
+    errorCount ++;                                             
+  }
 } else {
-  console.log(chalk.red('TEST Failed !'));
-  errorCount ++;                                             
+  console.log(chalk.yellow('TEST skipped !'));
 }
 
 
@@ -53,14 +60,18 @@ if(checkCommandResult(
 
 
 console.log(chalk.blue('stdin decoding', ':'));                                             
-if(checkCommandResult(
-  execSync('echo dGVzdA== | node dist/src/index.js -d').toString('utf-8'),
-  'test'
-)){
-  console.log(chalk.green('TEST Success !'));                                             
+if(!isOSWindows){                                        
+  if(checkCommandResult(
+    execSync('echo dGVzdA== | node dist/src/index.js -d').toString('utf-8'),
+    'test'
+  )){
+    console.log(chalk.green('TEST Success !'));                                             
+  } else {
+    console.log(chalk.red('TEST Failed !')); 
+    errorCount ++;                                             
+  }
 } else {
-  console.log(chalk.red('TEST Failed !')); 
-  errorCount ++;                                             
+  console.log(chalk.yellow('TEST skipped !'));
 }
 
 
