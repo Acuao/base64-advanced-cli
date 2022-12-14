@@ -1,4 +1,4 @@
-v[![Release](https://github.com/Acuao/base64-advanced-cli/actions/workflows/release.yml/badge.svg)](https://github.com/Acuao/base64-advanced-cli/actions/workflows/release.yml)
+[![Release](https://github.com/Acuao/base64-advanced-cli/actions/workflows/release.yml/badge.svg)](https://github.com/Acuao/base64-advanced-cli/actions/workflows/release.yml)
 [![BuildTest](https://github.com/Acuao/base64-advanced-cli/actions/workflows/buildTest.yml/badge.svg)](https://github.com/Acuao/base64-advanced-cli/actions/workflows/buildTest.yml)
 
 # base64-advanced-cli
@@ -85,11 +85,12 @@ You can also read input from stdin _(only on unix systems)_ to encode & decode d
 $ echo "Hello World!" | b64 -e
 ```
 will return `SGVsbG8gV29ybGQhCg==`.
+
 stdin is also applicable for decoding purposes
 ```
 $ echo SGVsbG8gV29ybGQhCg== | b64 -d
 ```
-will return `Hello World!`
+will return `Hello World!`.
 #### JWT Preview :
 This CLI provides a simple way to preview the content of JWT tokens.
 ```
