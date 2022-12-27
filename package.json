@@ -4,8 +4,8 @@
   "description": "Command line interface for advanced base 64 encoding/decoding",
   "scripts": {
     "dev": "tsc -w",
-    "test": "node --loader ts-node/esm test/test.ts",
-    "build": "npm i && npx rimraf dist && tsc && node --loader ts-node/esm scripts/build-package-json",
+    "test": "npx ts-node --esm test/test.ts",
+    "build": "npm i && npx rimraf dist && tsc && npx ts-node --esm scripts/build-package-json",
     "build:local": "npm uninstall -g base64-advanced-cli && npm run build && npm install -g .",
     "make:prerelease": "npm run build:local && npm test",
     "make:release": "npm run make:prerelease && npm publish"
