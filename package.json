@@ -1,6 +1,6 @@
 {
   "name": "base64-advanced-cli",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Command line interface for advanced base 64 encoding/decoding",
   "scripts": {
     "dev": "tsc -w",
