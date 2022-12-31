@@ -60,7 +60,11 @@ try {
   const updateCheckInterval = 1000 * 60 * 60 * 24 // 1 DAY
   const notifier = updateNotifier({pkg: packageJson, updateCheckInterval});
   if(options.version){
-    notifier.update = await notifier.fetchInfo();
+    try {
+      notifier.update = await notifier.fetchInfo();
+    } catch (e) {
+      console.log('Update check failed. Check your internet connection.')
+    }
   }
   notifier.notify();
 }
