@@ -196,6 +196,22 @@ fs.rmSync('test/encoded.tmp.gif');
 
 
 
+console.log(chalk.blue('output into non-existent recursive folders', ':'));      
+execSync('node dist/src/index.js -e -i test/bus.gif -o test/out1/out2/encoded.tmp.gif');
+
+if( getFileSha256('test/out1/out2/encoded.tmp.gif') ===  'ffe3bbb08cd54b7c14d491d1f82ec7b17d88b06c097ead6d76c67faf014835e8'){
+  console.log(chalk.green('TEST Success !'));
+} else {
+  console.log(chalk.red('TEST Failed !')); 
+  errorCount ++;
+}
+fs.rmSync('test/out1', {recursive:true});
+
+
+
+
+
+
 
 
 

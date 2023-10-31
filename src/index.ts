@@ -167,6 +167,10 @@ if(options.decode){
 // handle output
 const outputBuffer = Buffer.from(inputAsB64string, inputEncoding);
 if(options.outputFile){
+
+  // create recursive directories for output
+  fs.mkdirSync(path.dirname(options.outputFile), {recursive:true});
+  
   if(options.decode){
     fs.writeFileSync(options.outputFile, Buffer.from(inputAsB64string,'base64' ));
   } else {
