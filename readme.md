@@ -124,4 +124,6 @@ Will perform the same operation but will save the image html content in a file r
 Find all releases on npm : https://www.npmjs.com/package/base64-advanced-cli
 
 ##  :warning: Note
-This library is still under development some changes may occur, great features incoming :muscle:
+This library is still under development some changes may occur, great features incoming :muscle:.
+
+Any improvement ideas are welcome, feel free to create issues for evolutions/bugs on the repository of the project. 
