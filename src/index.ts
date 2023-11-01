@@ -123,6 +123,9 @@ if(options.html) {
   const mimeType = base64ImageMime.getImageMime(imageContentB64);
   const imageHtml= `<img src="data:${mimeType};base64,${imageContentB64}" />`;
   if(options.outputFile){
+    // create recursive directories for output
+    fs.mkdirSync(path.dirname(options.outputFile), {recursive:true});
+    
     fs.writeFileSync(options.outputFile, imageHtml);
   } else {
     console.log(chalk.yellow(imageHtml));
