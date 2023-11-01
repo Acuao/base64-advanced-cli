@@ -166,6 +166,20 @@ fs.rmSync('test/image.tmp.html');
 
 
 
+console.log(chalk.blue('html image encoding to file with recursive', ':'));      
+execSync('node dist/src/index.js -e --html -i test/in-love-small.png -o test/out1/out2/image.tmp.html');
+
+if(getFileSha256('./test/out1/out2/image.tmp.html') === getFileSha256('./test/html-image-output.html')){
+  console.log(chalk.green('TEST Success !'));
+} else {
+  console.log(chalk.red('TEST Failed !')); 
+  errorCount ++;
+}
+fs.rmSync('test/out1', {recursive:true});
+
+
+
+
 
 console.log(chalk.blue('decode from file to file', ':'));      
 execSync('node dist/src/index.js -d -i test/bus.gif.b64 -o test/decoded.tmp.gif');
