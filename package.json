@@ -8,7 +8,7 @@
     "build": "npm i && npx rimraf dist && tsc && npx ts-node --esm scripts/build-package-json && cp readme.md LICENSE dist/",
     "build:local": "npm uninstall -g base64-advanced-cli && npm run build && npm install -g .",
     "make:prerelease": "npm run build:local && npm test",
-    "make:release": "npm run make:prerelease && npm publish"
+    "make:release": "exit && npm run make:prerelease && npm publish"
   },
   "bin": {
     "b64": "./dist/src/index.js"
