@@ -131,7 +131,7 @@ fs.rmSync('test/encoded.tmp.txt.b64');
 
 
 console.log(chalk.blue('JWT decoding', ':'));      
-if(execSync('node dist/src/index.js --jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.hqWGSaFpvbrXkOWc6lrnffhNWR19W_S1YKFBx2arWBk').toString('utf8') === fs.readFileSync('./test/jwt-output.txt').toString('utf8')){
+if(execSync('node dist/src/index.js --jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.hqWGSaFpvbrXkOWc6lrnffhNWR19W_S1YKFBx2arWBk').toString('utf8').replaceAll('\r', '') === fs.readFileSync('./test/jwt-output.txt').toString('utf8').replaceAll('\r', '')){
   console.log(chalk.green('TEST Success !'));
 } else {
   console.log(chalk.red('TEST Failed !')); 
