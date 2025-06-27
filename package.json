@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tsc -w",
     "test": "npx ts-node --esm test/test.ts",
-    "build": "npm i && npx rimraf dist && tsc && npx tsx scripts/build-package-json && cp readme.md LICENSE dist/",
+    "build": "npm i && npx rimraf dist && tsc && npx ts-node --esm scripts/build-package-json && cp readme.md LICENSE dist/",
     "build:local": "npm uninstall -g base64-advanced-cli && npm run build && npm install -g .",
     "make:prerelease": "npm run build:local && npm test",
     "make:release": "npm run make:prerelease && npm publish"
@@ -45,7 +45,6 @@
   "author": "Acuao",
   "license": "MIT",
   "devDependencies": {
-    "npx": "^10.2.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.8.4"
   },
