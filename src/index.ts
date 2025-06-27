@@ -22,6 +22,7 @@ const packageJson = JSON.parse(fs.readFileSync(packageJsonPath).toString());
 // define program parameters & options
 interface ProgramOptions{
   encode: boolean | string,
+  webSafe: boolean,
   decode: boolean | string,
   inputFile: string,
   outputFile: string,
@@ -34,6 +35,7 @@ interface ProgramOptions{
 program
   .option('-d, --decode [data]', 'set mode to encoding')
   .option('-e, --encode [data]', 'set mode to decoding')
+  .option('--web-safe', 'use websafe substitution characters when encoding/decoding')
   .option('-i, --input-file <filename>', 'read input from a file')
   .option('-o, --output-file <filename>', 'write output to a file')
   .option('-v, --version', 'display the version of this CLI')
@@ -121,7 +123,7 @@ if(options.jwt) {
 if(options.html) {
   const imageContentB64 = fs.readFileSync(options.inputFile).toString('base64');
   const mimeType = base64ImageMime.getImageMime(imageContentB64);
-  const imageHtml= `<img src="data:${mimeType};base64,${imageContentB64}" />`;
+  const imageHtml= `<img src="data:${mimeType};base64,${handleWebSafe("ENCODE", imageContentB64)}" />`;
   if(options.outputFile){
     // create recursive directories for output
     fs.mkdirSync(path.dirname(options.outputFile), {recursive:true});
@@ -138,6 +140,19 @@ if(options.html) {
 
 
 
+function handleWebSafe(mode: "ENCODE" | "DECODE", data: string): string{
+  if(options.webSafe){
+    if(mode === "ENCODE"){
+      return data.replaceAll('+', '-').replaceAll('/', '_').replace(/=*$/, '');
+    }
+    if(mode === "DECODE"){
+      return data.replaceAll('-', '+').replaceAll('_', '/');
+    }
+  }
+  return data;
+}
+
+
 
 
 
@@ -148,10 +163,13 @@ let inputAsB64string = '';
 if(options.encode){
   inputEncoding = 'utf8';
   if(options.encode !== true){
-    inputAsB64string = Buffer.from(options.encode, inputEncoding).toString('base64');
+    inputAsB64string =  Buffer.from(options.encode, inputEncoding).toString('base64');
   } else if(options.inputFile) {
     inputAsB64string = fs.readFileSync(options.inputFile).toString('base64');
   }
+
+  // handle websafe characters
+  inputAsB64string =  handleWebSafe("ENCODE", inputAsB64string);
 }
 
 //handle "decode" input
@@ -162,6 +180,8 @@ if(options.decode){
   } else if(options.inputFile) {
     inputAsB64string = fs.readFileSync(options.inputFile).toString('ascii');
   }
+  // handle websafe characters
+  inputAsB64string = handleWebSafe("DECODE", inputAsB64string);
 }
 
 

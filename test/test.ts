@@ -26,6 +26,32 @@ if(checkCommandResult(
 
 
 
+console.log(chalk.blue('encoding WITHOUT web-safe', ':'));
+if(checkCommandResult(
+  execSync('node dist/src/index.js -e "<<???>>"').toString('utf-8'),
+  'PDw/Pz8+Pg=='
+)){
+  console.log(chalk.green('TEST Success !'));
+} else {
+  console.log(chalk.red('TEST Failed !'));
+  errorCount ++;
+}
+
+
+console.log(chalk.blue('encoding WITH web-safe', ':'));
+if(checkCommandResult(
+  execSync('node dist/src/index.js -e "<<???>>" --web-safe').toString('utf-8'),
+  'PDw_Pz8-Pg'
+)){
+  console.log(chalk.green('TEST Success !'));
+} else {
+  console.log(chalk.red('TEST Failed !'));
+  errorCount ++;
+}
+
+
+
+
 
 console.log(chalk.blue('stdin encoding', ':'));
 if(!isOSWindows){
@@ -49,6 +75,19 @@ console.log(chalk.blue('simple decoding', ':'));
 if(checkCommandResult(
   execSync('node dist/src/index.js -d dGVzdA==').toString('utf-8'),
   'test'
+)){
+  console.log(chalk.green('TEST Success !'));
+} else {
+  console.log(chalk.red('TEST Failed !')); 
+  errorCount ++;
+}
+
+
+
+console.log(chalk.blue('decoding web-safe content', ':'));
+if(checkCommandResult(
+  execSync('node dist/src/index.js -d PDw_Pz8-Pg').toString('utf-8'),
+  '<<???>>'
 )){
   console.log(chalk.green('TEST Success !'));
 } else {

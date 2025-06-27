@@ -41,6 +41,7 @@ Usage: b64 [options]
 Options:
   -d, --decode [data]           set mode to encoding
   -e, --encode [data]           set mode to decoding
+  --web-safe                    use websafe substitution characters when encoding/decoding
   -i, --input-file <filename>   read input from a file
   -o, --output-file <filename>  write output to a file
   -v, --version                 display the version of this CLI
@@ -58,12 +59,15 @@ $ b64 -e "Hello World!"
 ```
 Will return `SGVsbG8gV29ybGQh` value.
 
+The `--web-safe` argument will replace `+` by `-`, `/` by `_` and remove the trailing equal signs (`=` or `==`) 
+
 #### Decoding :
 
 ```
 $ b64 -d SGVsbG8gV29ybGQh
 ```
 Will return `Hello World!` value.
+
 
 #### Writing output to a file :
 ```
