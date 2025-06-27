@@ -41,7 +41,7 @@ program
   .option('--html', 'encode an image into an html tag containing base64 data')
   .option('--no-update-notification', 'do not display update notifications')
   .addHelpText("before", chalk.red(figlet.textSync("b64", {font: 'Univers'})))
-  .addHelpText("before", chalk.green("base64-advanced-client v" + packageJson.version))
+  .addHelpText("before", chalk.green("base64-advanced-cli v" + packageJson.version))
 program.parse();
 
 const options: ProgramOptions = program.opts();
@@ -61,7 +61,7 @@ try {
   const notifier = updateNotifier({pkg: packageJson, updateCheckInterval});
   if(options.version){
     try {
-      notifier.update = await notifier.fetchInfo();
+      //notifier.update = await notifier.fetchInfo();
     } catch (e) {
       console.log('Update check failed. Check your internet connection.')
     }
@@ -78,7 +78,7 @@ if (!process.argv.slice(2).length) {
 
 // display version handling
 if(options.version) {
-  console.log(chalk.green("base64-advanced-client v" + packageJson.version));
+  console.log(chalk.green("base64-advanced-cli v" + packageJson.version));
   exit();
 }
 
