@@ -33,8 +33,8 @@ interface ProgramOptions{
 } 
 
 program
-  .option('-d, --decode [data]', 'set mode to encoding')
-  .option('-e, --encode [data]', 'set mode to decoding')
+  .option('-d, --decode [data]', 'set mode to decoding')
+  .option('-e, --encode [data]', 'set mode to encoding')
   .option('--web-safe', 'use websafe substitution characters when encoding/decoding')
   .option('-i, --input-file <filename>', 'read input from a file')
   .option('-o, --output-file <filename>', 'write output to a file')
